@@ -1,0 +1,44 @@
+services:
+  api: 
+    image: real-time-chat-api:latest
+    container_name: real-time-chat-api
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    ports:
+      - "2020:2020"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=postgres_server;Database=RealTimeChat;User Id=postgres;Password=RealTimeChat123;
+      - ASPNETCORE_ENVIRONMENT=Development
+      - APPlY_MIGRATIONS=true
+    depends_on:
+      - postgres_server
+    restart: always
+  
+  app:
+    image: real-time-chat-app:latest
+    container_name: real-time-chat-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=production
+    restart: always
+
+  postgres_server:
+    image: postgres:latest
+    container_name: real-time-chat-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: RealTimeChat123
+      POSTGRES_DB: RealTimeChat
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  pgdata:

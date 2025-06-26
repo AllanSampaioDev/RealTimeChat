@@ -1,0 +1,10 @@
+global using Api.Contracts;
+global using Api.Domain;
+global using Api.Infra;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.SignalR;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Collections.Concurrent;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
